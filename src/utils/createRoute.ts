@@ -1,26 +1,34 @@
 import fs from 'fs';
 import path from "path";
 import {defineCorrectPathToSource} from './defineCorrectPaths';
+import { createRouterMethod, registerRouter } from './routesGenerators';
+
+const methods = ['delete', 'get', 'patch', 'put', 'post'];
+
+const createRouteEntry = async (routeName: string, path: string) => {
+  try{
+    await Promise.all(methods.map(el => fs.promises.writeFile(`${path}/${el}.ts`, createRouterMethod(routeName, el))));
+    await fs.promises.writeFile(`${path}/index.ts`, registerRouter(routeName));
+  }catch(error) {
+    console.error(error);
+  }
+};
 
 export const createRouteStructure = async (name: string) => {
-  // const targetPath = path.join(process.cwd(), 'api', name);
   const sourcePath = await defineCorrectPathToSource();
   const targetPath = path.join(sourcePath, 'api', name);
   
   if(fs.existsSync(path.join(sourcePath, 'api'))){
     if(fs.existsSync(path.join(sourcePath, 'api', name))){
-      // TODO write file
+      createRouteEntry(name, targetPath);
     }else {
-      // TODO mkdir route dir
+      fs.promises.mkdir(path.join(sourcePath, 'api', name)).then(res => {
+        createRouteEntry(name, targetPath);
+      })
     }
   }else {
-    // TODO create api and route dir
-  }
-
-  // TODO separate this to func
-  try{
-    await fs.promises.writeFile(`${targetPath}/index.ts`, `hello dolly`);
-  }catch(error) {
-    console.error(error);
+    fs.promises.mkdir(path.join(sourcePath, 'api', name), {recursive: true}).then(res => {
+      createRouteEntry(name, targetPath);
+    })
   }
 }

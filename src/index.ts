@@ -2,7 +2,6 @@
 
 import {createRouteStructure} from './utils/createRoute';
 
-// console.log("hello from here js");
 console.log(process.cwd());
 process.argv.length > 2
   ? console.log(process.argv.slice(2))
