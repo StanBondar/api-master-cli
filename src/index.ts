@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import {createRouteStructure} from './utils/createRoute';
+import {createRouteStructure} from './utils/create-route';
 
 console.log(process.cwd());
 process.argv.length > 2

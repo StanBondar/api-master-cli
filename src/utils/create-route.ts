@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from "path";
-import {defineCorrectPathToSource} from './defineCorrectPaths';
-import { createRouterMethod, registerRouter } from './routesGenerators';
-import { createApiEntryPoint, updateApiEntryPoint } from './updateApiEtryPoint';
+import {defineCorrectPathToSource} from './define-correct-paths';
+import { createRouterMethod, registerRouter } from './routes-generators';
+import { createApiEntryPoint, updateApiEntryPoint } from './update-api-entry-point';
 
 const methods = ['delete', 'get', 'patch', 'put', 'post'];
 
@@ -16,7 +16,7 @@ export const createRouteEntryPoint = async (routeName: string, path: string) => 
 };
 
 export const createRouteStructure = async (name: string) => {
-  const sourcePath = await defineCorrectPathToSource();
+  const sourcePath = await defineCorrectPathToSource() || '';
   const targetPath = path.join(sourcePath, 'api', name);
 
   await fs.promises.mkdir(targetPath, {recursive: true});

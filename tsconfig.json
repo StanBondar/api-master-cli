@@ -4,6 +4,7 @@
     "declaration": false,
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "strict": true,
     "target": "ES2017",
     "sourceMap": true,
     "outDir": "./build",

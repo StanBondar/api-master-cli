@@ -1,14 +1,14 @@
 import fs from 'fs';
 
-const createImportLine = (routerName) => {
+const createImportLine = (routerName: string) => {
   return `import ${routerName}Router from './${routerName}';`;
 }
 
-const createNewRouterLine = (routerName) => {
+const createNewRouterLine = (routerName: string) => {
   return `\tapp.use('/${routerName}', ${routerName}Router);`
 }
 
-export const updateApiEntryPoint = async (filePath, routeName) => {
+export const updateApiEntryPoint = async (filePath: string, routeName: string) => {
   const entryPointData = await fs.promises.readFile(filePath, 'utf8');
   const newImportIndex = entryPointData.indexOf('\n', entryPointData.lastIndexOf('import'));
   
@@ -21,7 +21,7 @@ export const updateApiEntryPoint = async (filePath, routeName) => {
   console.log("import position", newImportIndex);
 }
 
-export const createApiEntryPoint = async (filePath) => {
+export const createApiEntryPoint = async (filePath: string) => {
   const apiEntryPointTemplate = `
   import { Express, json } from 'express';
 
