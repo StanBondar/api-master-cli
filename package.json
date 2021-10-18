@@ -1,5 +1,5 @@
 {
-  "name": "js-cli_package",
+  "name": "api-master-cli",
   "version": "1.0.0",
   "description": "",
   "main": "build/index.js",
