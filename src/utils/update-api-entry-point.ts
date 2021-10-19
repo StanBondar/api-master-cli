@@ -18,7 +18,6 @@ export const updateApiEntryPoint = async (filePath: string, routeName: string) =
 
   const fileWithRouter = `${fileWithImport.slice(0, newRouterIndex+1)}${createNewRouterLine(routeName)}${'\n'}${fileWithImport.slice(newRouterIndex+1)}`
   fs.promises.writeFile(filePath, fileWithRouter);
-  console.log("import position", newImportIndex);
 }
 
 export const createApiEntryPoint = async (filePath: string) => {
