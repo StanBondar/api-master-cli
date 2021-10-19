@@ -3,4 +3,14 @@ It can be started only from the project directory or from any of its subdirector
 The package will create a router bundle in your API folder and will update the API entry point.
 If the API folder doesn't exist - it will be created automatically.
 
-Just run js-cli_package route_name, where "route_name" is your desired route name.
+### Installing js-cli_package
+
+With NPM:
+
+```bash
+$npm i -g js-cli_package
+```
+
+#### Usage
+
+Just run js-cli_package <route_name>, where "route_name" is your desired route name.
