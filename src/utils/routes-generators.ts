@@ -1,5 +1,5 @@
 export const createRouterMethod = (name: string, method: string) => {
-  return `
+	return `
   import {Request,Response} from "express";
 
   export const ${method}${name[0].toUpperCase()+name.slice(1)} = async (req:Request, res:Response) => {
@@ -9,9 +9,9 @@ export const createRouterMethod = (name: string, method: string) => {
 };
 
 export const registerRouter = (name: string) => {
-  const capitalizedName = `${name[0].toUpperCase()}${name.slice(1)}`;
+	const capitalizedName = `${name[0].toUpperCase()}${name.slice(1)}`;
 
-  const body = `
+	const body = `
   import { Router } from 'express';
   import { get${capitalizedName} } from './get';
   import { post${capitalizedName} } from './post';
@@ -30,5 +30,5 @@ export const registerRouter = (name: string) => {
   export default router; 
   `;
 
-  return body;
-}
+	return body;
+};
