@@ -20,8 +20,8 @@ export const defineCorrectPathToSource = async () => {
 	}
 };
 
-export const defineTargetPathRecursively = async () => {
-	const cwd = process.cwd();
+export const defineTargetPathRecursively = async (location = '') => {
+	const cwd = location.length > 0 ? location : process.cwd();
 	if(cwd === '/') {
 		console.log(chalk.red('Please go to your project directory'));
 		return;
@@ -35,7 +35,8 @@ export const defineTargetPathRecursively = async () => {
 			CONFIG.srcPath = path.join(cwd, 'src');
 			return;
 		}else {
-			defineTargetPathRecursively();
+			const levelUpLocation = path.join(cwd, '../');
+			defineTargetPathRecursively(levelUpLocation);
 		}
 	}
 };
