@@ -8,6 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prebuild": "rm -rf build",
     "build": "tsc --build",
+    "start": "ts-node src/index",
     "eslint": "eslint \"src/**/*.ts\"",
     "eslint-fix": "eslint --fix \"src/**/*.ts\""
   },
@@ -15,12 +16,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^4.1.2",
     "typescript": "^4.4.4"
   },
   "devDependencies": {
     "@types/node": "^16.11.1",
     "@typescript-eslint/eslint-plugin": "^5.1.0",
     "@typescript-eslint/parser": "^5.1.0",
-    "eslint": "^8.0.1"
+    "eslint": "^8.0.1",
+    "ts-node": "^10.3.0"
   }
 }

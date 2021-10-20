@@ -1,3 +1,4 @@
+import chalk from 'chalk';
 import fs from 'fs';
 
 export const defineCorrectPathToSource = async () => {
@@ -11,7 +12,7 @@ export const defineCorrectPathToSource = async () => {
 			const pathToApi = `${cwd}/src`;
 			return pathToApi;
 		}else {
-			console.error('Please move to correct project directory');
+			console.log(chalk.red('Please move to correct project directory'));
 		}
 	}
 };
