@@ -1,3 +1,6 @@
+import { CONFIG } from './constants';
+
+
 export const createRouterMethod = (name: string, method: string) => {
 	return `
   import {Request,Response} from 'express';
@@ -11,23 +14,26 @@ export const createRouterMethod = (name: string, method: string) => {
 export const registerRouter = (name: string) => {
 	const capitalizedName = `${name[0].toUpperCase()}${name.slice(1)}`;
 
+	const getImportMethod = (requestType: string) => {
+		return `import { ${requestType}${capitalizedName} } from './${requestType}';\n`;
+	};
+
+	const getRouteHandler = (requestType: string) => {
+		return `router.${requestType}('/', ${requestType}${capitalizedName});\n`;
+	};
+
+	const allRouterImports = CONFIG.methods.map(el => getImportMethod(el));
+	const allRouteHandlers = CONFIG.methods.map(el => getRouteHandler(el));
+
 	const body = `
-  import { Router } from 'express';
-  import { get${capitalizedName} } from './get';
-  import { post${capitalizedName} } from './post';
-  import { patch${capitalizedName} } from './patch';
-  import { delete${capitalizedName} } from './delete';
-  import { put${capitalizedName} } from './put';
+import { Router } from 'express';
+${allRouterImports.join('')}
 
-  const router = Router();
+const router = Router();
 
-  router.get('/', get${capitalizedName});
-  router.post('/', post${capitalizedName});
-  router.patch('/', patch${capitalizedName});
-  router.delete('/', delete${capitalizedName});
-  router.put('/', put${capitalizedName});
+${allRouteHandlers.join('')}
 
-  export default router; 
+export default router; 
   `;
 
 	return body;

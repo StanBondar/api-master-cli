@@ -6,7 +6,7 @@ import {createRouteStructure} from './utils/create-route';
 
 if(process.argv.length > 2) {
 	createConfig();
-	// createRouteStructure();
+	createRouteStructure();
 }else {
 	console.log(chalk.red('Please, provide route name'));
 }

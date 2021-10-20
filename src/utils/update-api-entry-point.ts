@@ -22,12 +22,12 @@ export const updateApiEntryPoint = async (filePath: string, routeName: string) =
 
 export const createApiEntryPoint = async (filePath: string) => {
 	const apiEntryPointTemplate = `
-  import { Express, json } from 'express';
+import { Express, json } from 'express';
 
-  export const registerRouters = (app:Express)=> {
-    app.use(json());
- 
-  }
+export const registerRouters = (app:Express)=> {
+\tapp.use(json());
+
+}
   `;
 
 	await fs.promises.writeFile(filePath, apiEntryPointTemplate);

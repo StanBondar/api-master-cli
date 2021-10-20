@@ -1,17 +1,13 @@
 import fs from 'fs';
 import path from 'path';
-import { METHODS } from './constants';
-import {defineCorrectPathToSource} from './define-correct-paths';
 import { createRouterMethod, registerRouter } from './routes-generators';
 import { createApiEntryPoint, updateApiEntryPoint } from './update-api-entry-point';
 import {CONFIG} from './constants';
 import chalk from 'chalk';
 
-const methods = Object.values(METHODS);
-
 export const createRouteEntryPoint = async (routeName: string, path: string) => {
 	try{
-		await Promise.all(methods.map(el => fs.promises.writeFile(`${path}/${el}.ts`, createRouterMethod(routeName, el))));
+		await Promise.all(CONFIG.methods.map(el => fs.promises.writeFile(`${path}/${el}.ts`, createRouterMethod(routeName, el))));
 		await fs.promises.writeFile(`${path}/index.ts`, registerRouter(routeName));
 	}catch(error) {
 		console.log(chalk.red(error));
