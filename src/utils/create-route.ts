@@ -4,10 +4,9 @@ import { METHODS } from './constants';
 import {defineCorrectPathToSource} from './define-correct-paths';
 import { createRouterMethod, registerRouter } from './routes-generators';
 import { createApiEntryPoint, updateApiEntryPoint } from './update-api-entry-point';
-import {CONFIG} from './config';
+import {CONFIG} from './constants';
 import chalk from 'chalk';
 
-// const methods = ['delete', 'get', 'patch', 'put', 'post'];
 const methods = Object.values(METHODS);
 
 export const createRouteEntryPoint = async (routeName: string, path: string) => {
@@ -20,14 +19,13 @@ export const createRouteEntryPoint = async (routeName: string, path: string) => 
 };
 
 export const createRouteStructure = async () => {
-	const {route_name} = CONFIG;
-	const sourcePath = await defineCorrectPathToSource() || '';
-	const targetPath = path.join(sourcePath, 'api', route_name);
+	const {route_name, srcPath} = CONFIG;
+	const targetPath = path.join(srcPath, 'api', route_name);
 
 	await fs.promises.mkdir(targetPath, {recursive: true});
 	await createRouteEntryPoint(route_name, targetPath);
-	if(!fs.existsSync(path.join(sourcePath, 'api', 'index.ts'))) {
-		await createApiEntryPoint(path.join(sourcePath, 'api', 'index.ts'));
+	if(!fs.existsSync(path.join(srcPath, 'api', 'index.ts'))) {
+		await createApiEntryPoint(path.join(srcPath, 'api', 'index.ts'));
 	}
-	updateApiEntryPoint(path.join(sourcePath, 'api', 'index.ts'), route_name);
+	updateApiEntryPoint(path.join(srcPath, 'api', 'index.ts'), route_name);
 };

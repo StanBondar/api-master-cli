@@ -5,3 +5,9 @@ export enum METHODS {
   PUT='put',
   DELETE='delete', 
 }
+
+export const CONFIG = {
+	route_name: '',
+	methods: Object.values(METHODS) as string[],
+	srcPath: ''
+};
