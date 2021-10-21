@@ -20,6 +20,10 @@
     "pluralize": "^8.0.0",
     "typescript": "^4.4.4"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/StanBondar/api-master-cli"
+  },
   "devDependencies": {
     "@types/node": "^16.11.1",
     "@types/pluralize": "^0.0.29",
