@@ -19,7 +19,7 @@ export const createRouteStructure = async () => {
 	const targetPath = path.join(srcPath, 'api', route_name);
 
 	if(fs.existsSync(targetPath)){
-		console.log(chalk.red('Chosen route already exists. Please try again with another one.'));
+		console.log(chalk.red('Chosen route already exists. Please check your api folder and try to create another one.'));
 		return;
 	}
 

@@ -18,5 +18,4 @@ export const createConfig = async () => {
 		}
 	}
 	await defineTargetPathRecursively();
-	console.log(`Create config.21. Config - ${JSON.stringify(CONFIG)}`);
 };
