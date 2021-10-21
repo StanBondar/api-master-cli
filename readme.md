@@ -8,7 +8,7 @@ If the API folder doesn't exist - it will be created automatically.
 With NPM:
 
 ```bash
-npx i -g api-master-cli
+npm i -g api-master-cli
 ```
 
 ## Usage
