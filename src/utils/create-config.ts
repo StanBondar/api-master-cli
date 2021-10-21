@@ -8,7 +8,7 @@ import chalk from 'chalk';
 
 export const createConfig = async () => {
 	const args = process.argv.slice(2);
-	CONFIG.route_name = pluralize(args[0]);
+	CONFIG.route_name = pluralize(args[0].toLowerCase());
 	if(args.length>1) {
 		const userMethods = args[1].split('-').filter(el => Object.values(METHODS).includes(el.toLowerCase() as METHODS));
 		if(userMethods.length) {

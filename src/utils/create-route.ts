@@ -16,7 +16,6 @@ export const createRouteEntryPoint = async (routeName: string, path: string) => 
 
 export const createRouteStructure = async () => {
 	const {route_name, srcPath} = CONFIG;
-	console.log(`Create-router.19. Config - ${JSON.stringify(CONFIG)}`);
 	const targetPath = path.join(srcPath, 'api', route_name);
 
 	await fs.promises.mkdir(targetPath, {recursive: true});
