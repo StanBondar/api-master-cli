@@ -18,6 +18,11 @@ export const createRouteStructure = async () => {
 	const {route_name, srcPath} = CONFIG;
 	const targetPath = path.join(srcPath, 'api', route_name);
 
+	if(fs.existsSync(targetPath)){
+		console.log(chalk.red('Chosen route already exists. Please try again with another one.'));
+		return;
+	}
+
 	await fs.promises.mkdir(targetPath, {recursive: true});
 	await createRouteEntryPoint(route_name, targetPath);
 	if(!fs.existsSync(path.join(srcPath, 'api', 'index.ts'))) {
