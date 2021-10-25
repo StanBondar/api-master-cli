@@ -1,9 +1,16 @@
 #!/usr/bin/env node
 
+import chalk from 'chalk';
+import { createConfig } from './utils/create-config';
 import {createRouteStructure} from './utils/create-route';
 
-  if(process.argv.length <= 2) console.error("Please, provide route name");
+const initCli = async () => {
+	try{
+		await	createConfig();
+		await createRouteStructure();
+	}catch(err) {
+		console.log(chalk.red(err));
+	}
+};
 
-  if(process.argv.length > 2) {
-    createRouteStructure(process.argv[2]);
-  }
+initCli();

@@ -1,40 +1,32 @@
 import fs from 'fs';
-import path from "path";
-import {defineCorrectPathToSource} from './define-correct-paths';
+import path from 'path';
 import { createRouterMethod, registerRouter } from './routes-generators';
 import { createApiEntryPoint, updateApiEntryPoint } from './update-api-entry-point';
-
-const methods = ['delete', 'get', 'patch', 'put', 'post'];
+import {CONFIG} from './constants';
+import chalk from 'chalk';
 
 export const createRouteEntryPoint = async (routeName: string, path: string) => {
-  try{
-    await Promise.all(methods.map(el => fs.promises.writeFile(`${path}/${el}.ts`, createRouterMethod(routeName, el))));
-    await fs.promises.writeFile(`${path}/index.ts`, registerRouter(routeName));
-  }catch(error) {
-    console.error(error);
-  }
+	try{
+		await Promise.all(CONFIG.methods.map(el => fs.promises.writeFile(`${path}/${el}.ts`, createRouterMethod(routeName, el))));
+		await fs.promises.writeFile(`${path}/index.ts`, registerRouter(routeName));
+	}catch(error) {
+		console.log(chalk.red(error));
+	}
 };
 
-export const createRouteStructure = async (name: string) => {
-  const sourcePath = await defineCorrectPathToSource() || '';
-  const targetPath = path.join(sourcePath, 'api', name);
+export const createRouteStructure = async () => {
+	const {routeName, srcPath} = CONFIG;
+	const targetPath = path.join(srcPath, 'api', routeName);
 
-  await fs.promises.mkdir(targetPath, {recursive: true});
-  await createRouteEntryPoint(name, targetPath);
-  if(!fs.existsSync(path.join(sourcePath, 'api', 'index.ts'))) await createApiEntryPoint(path.join(sourcePath, 'api', 'index.ts'));
-  updateApiEntryPoint(path.join(sourcePath, 'api', 'index.ts'), name);
-  
-  // if(fs.existsSync(path.join(sourcePath, 'api'))){
-  //   if(fs.existsSync(path.join(sourcePath, 'api', name))){
-  //     createRouteEntry(name, targetPath);
-  //   }else {
-  //     fs.promises.mkdir(path.join(sourcePath, 'api', name)).then(res => {
-  //       createRouteEntry(name, targetPath);
-  //     })
-  //   }
-  // }else {
-  //   fs.promises.mkdir(path.join(sourcePath, 'api', name), {recursive: true}).then(res => {
-  //     createRouteEntry(name, targetPath);
-  //   })
-  // }
-}
+	if(fs.existsSync(targetPath)){
+		console.log(chalk.red('Chosen route already exists. Please check your api folder and try to create another one.'));
+		return;
+	}
+
+	await fs.promises.mkdir(targetPath, {recursive: true});
+	await createRouteEntryPoint(routeName, targetPath);
+	if(!fs.existsSync(path.join(srcPath, 'api', 'index.ts'))) {
+		await createApiEntryPoint(path.join(srcPath, 'api', 'index.ts'));
+	}
+	updateApiEntryPoint(path.join(srcPath, 'api', 'index.ts'), routeName);
+};
