@@ -7,7 +7,7 @@ export enum METHODS {
 }
 
 export const CONFIG = {
-	route_name: '',
+	routeName: '',
 	methods: Object.values(METHODS) as string[],
 	srcPath: ''
 };

@@ -5,11 +5,11 @@ import { createConfig } from './utils/create-config';
 import {createRouteStructure} from './utils/create-route';
 
 const initCli = async () => {
-	if(process.argv.length > 2) {
+	try{
 		await	createConfig();
 		await createRouteStructure();
-	}else {
-		console.log(chalk.red('Please, provide route name'));
+	}catch(err) {
+		console.log(chalk.red(err));
 	}
 };
 

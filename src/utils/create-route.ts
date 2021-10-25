@@ -15,8 +15,8 @@ export const createRouteEntryPoint = async (routeName: string, path: string) => 
 };
 
 export const createRouteStructure = async () => {
-	const {route_name, srcPath} = CONFIG;
-	const targetPath = path.join(srcPath, 'api', route_name);
+	const {routeName, srcPath} = CONFIG;
+	const targetPath = path.join(srcPath, 'api', routeName);
 
 	if(fs.existsSync(targetPath)){
 		console.log(chalk.red('Chosen route already exists. Please check your api folder and try to create another one.'));
@@ -24,9 +24,9 @@ export const createRouteStructure = async () => {
 	}
 
 	await fs.promises.mkdir(targetPath, {recursive: true});
-	await createRouteEntryPoint(route_name, targetPath);
+	await createRouteEntryPoint(routeName, targetPath);
 	if(!fs.existsSync(path.join(srcPath, 'api', 'index.ts'))) {
 		await createApiEntryPoint(path.join(srcPath, 'api', 'index.ts'));
 	}
-	updateApiEntryPoint(path.join(srcPath, 'api', 'index.ts'), route_name);
+	updateApiEntryPoint(path.join(srcPath, 'api', 'index.ts'), routeName);
 };
