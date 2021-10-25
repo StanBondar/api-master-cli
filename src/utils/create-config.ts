@@ -18,9 +18,8 @@ export const createConfig = async () => {
 	if(userMethods.length){
 		CONFIG.methods = userMethods;
 	}else {
-		console.log(chalk.red('Incorrect methods provided. All available methods templates will be created'));
+		methods.length && console.log(chalk.red('Correct method. All available methods templates will be created'));
 	}
 
-	await defineTargetPathRecursively();
-	// await defineTargetPathRecursively();
+	CONFIG.srcPath = await defineTargetPathRecursively();
 };
